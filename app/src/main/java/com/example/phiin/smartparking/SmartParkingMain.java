@@ -14,6 +14,7 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 
+import static com.example.phiin.smartparking.R.id.btnAjuda;
 import static com.example.phiin.smartparking.R.id.btnProcurarVagas;
 import static com.example.phiin.smartparking.R.id.btnVagas;
 
@@ -42,6 +43,11 @@ public class SmartParkingMain extends AppCompatActivity implements View.OnClickL
 
                     break;
                 case btnVagas:
+                    //Stop MediaPlayer
+
+                    break;
+
+                case btnAjuda:
                     //Stop MediaPlayer
 
                     break;
@@ -114,4 +120,6 @@ public class SmartParkingMain extends AppCompatActivity implements View.OnClickL
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
     }
+
+
 }

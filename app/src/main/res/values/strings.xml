@@ -4,4 +4,5 @@
     <string name="procurar_vaga">Procurar Vaga</string>
     <string name="vaga">Vagas</string>
     <string name="ajuda">Ajuda</string>
+    <string name="title_activity_procurar_vaga">ProcurarVaga</string>
 </resources>
