@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">SmartParking</string>
+    <string name="action_settings">Settings</string>
+    <string name="procurar_vaga">Procurar Vaga</string>
+    <string name="vaga">Vagas</string>
+    <string name="ajuda">Ajuda</string>
+</resources>
