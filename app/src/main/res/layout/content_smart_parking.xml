@@ -64,19 +64,19 @@
                     android:layout_height="wrap_content"
                     android:text="@string/vaga"
                     android:id="@+id/btnVagas"
-                    />
+                    android:onClick="onClick"/>
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/procurar_vaga"
                     android:id="@+id/btnProcurarVagas"
-                    />
+                    android:onClick="onClick"/>
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/ajuda"
                     android:id="@+id/btnAjuda"
-                    />
+                    android:onClick="onClick" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>
