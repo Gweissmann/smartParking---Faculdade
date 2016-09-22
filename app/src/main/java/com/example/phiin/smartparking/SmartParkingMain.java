@@ -1,5 +1,6 @@
 package com.example.phiin.smartparking;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -25,9 +26,10 @@ public class SmartParkingMain extends AppCompatActivity implements View.OnClickL
     @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.smart_parking);
             Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
+            getSupportActionBar().setTitle("Procurar Vagas");
 
             Button btnProcurarVaga = (Button) findViewById(btnProcurarVagas);
             Button btnVaga = (Button) findViewById(R.id.btnVagas);
@@ -39,16 +41,19 @@ public class SmartParkingMain extends AppCompatActivity implements View.OnClickL
             // Perform action on click
             switch (v.getId()) {
                 case btnProcurarVagas:
-                    //Play voicefile
+                    Intent procurarvaga = new Intent(SmartParkingMain.this, ProcurarVaga.class);
+                    startActivity(procurarvaga);
 
                     break;
                 case btnVagas:
-                    //Stop MediaPlayer
+                    Intent vagas = new Intent(SmartParkingMain.this, Vagas.class);
+                    startActivity(vagas);
 
                     break;
 
                 case btnAjuda:
-                    //Stop MediaPlayer
+                    Intent ajudatec = new Intent(SmartParkingMain.this, AjudaTecnica.class);
+                    startActivity(ajudatec);
 
                     break;
             }

@@ -29,6 +29,18 @@
         <activity
             android:name=".SmartParkingMain$ProcurarVaga"
             android:label="@string/title_activity_procurar_vaga"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="layout.procurar_vagas.PocurarVagas"
+            android:label="@string/title_activity_pocurar_vagas"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="layout.vaga.mainVaga"
+            android:label="@string/title_activity_main_vaga"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="layout.ajudatecnica.AjudaTecnica"
+            android:label="@string/title_activity_ajuda_tecnica"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

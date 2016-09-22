@@ -5,4 +5,7 @@
     <string name="vaga">Vagas</string>
     <string name="ajuda">Ajuda</string>
     <string name="title_activity_procurar_vaga">ProcurarVaga</string>
+    <string name="title_activity_pocurar_vagas">PocurarVagas</string>
+    <string name="title_activity_main_vaga">mainVaga</string>
+    <string name="title_activity_ajuda_tecnica">AjudaTecnica</string>
 </resources>
