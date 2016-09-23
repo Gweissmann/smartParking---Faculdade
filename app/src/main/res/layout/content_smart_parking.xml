@@ -13,13 +13,16 @@
         tools:context=".SmartParkingMain"
         tools:showIn="@layout/smart_parking">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context=".ui.SettingsActivity"
-        android:weightSum="1"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
         <RelativeLayout
