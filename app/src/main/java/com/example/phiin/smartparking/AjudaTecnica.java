@@ -5,7 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.widget.ImageView;
+import com.controle.fadeInFadeOut;
 /**
  * Created by phiin on 21/09/2016.
  */
@@ -23,6 +24,11 @@ public  class AjudaTecnica extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
+
+        ImageView demoImage = (ImageView) findViewById(R.id.lampada);
+        int imagesToShow[] = { R.drawable.aceso };
+
+        fadeInFadeOut.animate(demoImage, imagesToShow, 0,true);
 
     }
     @Override
