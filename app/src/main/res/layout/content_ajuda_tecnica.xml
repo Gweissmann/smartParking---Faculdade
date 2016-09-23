@@ -10,7 +10,72 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="layout.ajudatecnica.AjudaTecnica"
-    tools:showIn="@layout/activity_ajuda_tecnica2">
+    tools:context=".AjudaTecnica"
+    tools:showIn="@layout/activity_ajuda_tecnica">
+
+    <ImageView
+        android:layout_width="214dp"
+        android:layout_height="164dp"
+        android:src="@drawable/aceso"
+        android:id="@+id/lampada"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="87dp" />
+
+    <ImageView
+        android:layout_width="114dp"
+        android:layout_height="157dp"
+        android:src="@drawable/lanterna"
+        android:id="@+id/aceso"
+        android:layout_marginTop="27dp"
+        android:layout_alignTop="@+id/lampada"
+        android:layout_centerHorizontal="true" />
+
+
+    <TextView
+        android:text="Por favor Aguarde"
+        android:textSize="21sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtAjuda2"
+
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:text="a ajuda está a caminho."
+        android:textSize="21sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txtAjuda1"
+        android:layout_marginTop="11dp"
+        android:layout_below="@+id/txtAjuda2"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="Cancelar"
+        android:textColor="@color/Botoes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnCancelar"
+        android:background="@drawable/btn_style"
+        android:layout_weight="1.18"
+        android:layout_toEndOf="@+id/aceso"
+        android:layout_alignTop="@+id/btnCheck"
+        android:layout_alignParentBottom="true" />
+
+    <Button
+        android:text="Checkout"
+        android:textColor="@color/Botoes"
+        android:layout_width="135dp"
+        android:layout_height="35dp"
+        android:id="@+id/btnCheck"
+        android:background="@drawable/btn_style"
+
+        android:layout_weight="0.16"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/txtAjuda2" />
 
 </RelativeLayout>
+
