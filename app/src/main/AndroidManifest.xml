@@ -31,6 +31,10 @@
             android:label="@string/title_activity_procurar_vaga"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".Estacionar"
+            android:label="Estacionar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Vagas"
             android:label="Vagas"
             android:theme="@style/AppTheme.NoActionBar" />
