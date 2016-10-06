@@ -15,6 +15,31 @@
     tools:showIn="@layout/activity_ajuda_tecnica">
 
     <RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true">
+        <TextView
+            android:text="Por favor Aguarde"
+            android:textSize="21sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtAjuda2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="a ajuda está a caminho."
+            android:textSize="21sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtAjuda1"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/txtAjuda2"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:layout_alignParentRight="true"
