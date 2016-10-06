@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_ajuda_tecnica_resposta"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AjudaTecnicaResposta"
+    tools:showIn="@layout/activity_ajuda_tecnica_resposta">
+
+
+    <RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop ="50dp"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/relativeLayout">
+        <TextView
+            android:text="Obrigado"
+            android:textSize="21sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtresposta1"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:text="Solicitação cancelada"
+            android:textSize="21sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtrespostacancel"
+            android:visibility="invisible"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="por usar nossos serviços"
+            android:layout_width="wrap_content"
+            android:textSize="21sp"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtresposta2"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/txtresposta1"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="73dp"
+        android:layout_alignParentEnd="true">
+
+
+        <ImageView
+            android:layout_width="114dp"
+            android:layout_height="157dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/checked"
+            android:id="@+id/Checked"
+            android:layout_marginTop="27dp"
+            android:visibility="invisible"
+            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:layout_width="114dp"
+            android:layout_height="157dp"
+            android:layout_centerInParent="true"
+            android:visibility="invisible"
+            android:src="@drawable/cancel"
+            android:id="@+id/Canceled"
+            android:layout_marginTop="27dp"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

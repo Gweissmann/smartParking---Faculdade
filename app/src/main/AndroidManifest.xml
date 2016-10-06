@@ -38,6 +38,10 @@
             android:name=".AjudaTecnica"
             android:label="@string/title_activity_ajuda_tecnica"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AjudaTecnicaResposta"
+            android:label="Ajuda Tecnica"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

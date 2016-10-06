@@ -5,10 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".AjudaTecnica">
-
-    <include layout="@layout/content_ajuda_tecnica" />
-
+    tools:context=".AjudaTecnicaResposta">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -24,5 +21,7 @@
             app:title="Ajuda Técnica"/>
 
     </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_ajuda_tecnica_resposta" />
 
 </android.support.design.widget.CoordinatorLayout>

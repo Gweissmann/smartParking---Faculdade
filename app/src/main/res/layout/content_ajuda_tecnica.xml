@@ -11,33 +11,8 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".AjudaTecnica"
+    android:background="#ECEFF1"
     tools:showIn="@layout/activity_ajuda_tecnica">
-
-    <RelativeLayout android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true">
-        <TextView
-            android:text="Por favor Aguarde"
-            android:textSize="21sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtAjuda2"
-
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:text="a ajuda está a caminho."
-            android:textSize="21sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtAjuda1"
-            android:layout_marginTop="11dp"
-            android:layout_below="@+id/txtAjuda2"
-            android:layout_centerHorizontal="true" />
-
-    </RelativeLayout>
 
     <RelativeLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -46,20 +21,30 @@
     android:layout_alignParentLeft="true">
 
         <ImageView
-            android:layout_width="214dp"
-            android:layout_height="164dp"
-            android:src="@drawable/aceso"
-            android:id="@+id/lampada"
-            android:layout_centerInParent="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="87dp" />
-
-        <ImageView
             android:layout_width="114dp"
             android:layout_height="157dp"
             android:layout_centerInParent="true"
             android:src="@drawable/lanterna"
             android:id="@+id/aceso"
+            android:layout_marginTop="27dp"
+            android:layout_alignTop="@+id/lampada"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="164dp"
+            android:src="@drawable/aceso"
+            android:id="@+id/lampada"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="33dp" />
+        <ImageView
+            android:layout_width="114dp"
+            android:layout_height="157dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/checked"
+            android:visibility="invisible"
+            android:id="@+id/Checked"
             android:layout_marginTop="27dp"
             android:layout_alignTop="@+id/lampada"
             android:layout_centerHorizontal="true" />
@@ -76,11 +61,11 @@
             android:layout_height="35dp"
             android:id="@+id/btnCheck"
             android:background="@drawable/btn_style"
-
             android:layout_weight="0.16"
             android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
-            android:layout_toStartOf="@+id/txtAjuda2"/>
+            android:layout_toStartOf="@+id/txtAjuda2"
+            android:onClick="onClick"/>
         <Button
             android:text="Cancelar"
             android:textColor="@color/Botoes"
@@ -91,9 +76,37 @@
             android:layout_weight="1.18"
             android:layout_toEndOf="@+id/aceso"
             android:layout_alignTop="@+id/btnCheck"
-            android:layout_alignParentBottom="true" />
-        />
+            android:layout_alignParentBottom="true"
+            android:onClick="onClick"/>
+
     </LinearLayout>
+
+    <RelativeLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop ="50dp"
+        android:layout_alignParentEnd="true">
+        <TextView
+            android:text="Por favor Aguarde"
+            android:textSize="21sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtAjuda2"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:text="a ajuda está a caminho."
+            android:textSize="21sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtAjuda1"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/txtAjuda2"
+            android:layout_centerHorizontal="true" />
+
+    </RelativeLayout>
 
 </RelativeLayout>
 
