@@ -11,52 +11,53 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ProcurarVagas"
-    android:background="@drawable/Img01"
+    android:background="@drawable/img01"
     tools:showIn="@layout/activity_pocurar_vaga">
 
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1"
-        android:layout_alignParentBottom="true"
+    <RelativeLayout android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true">
 
-    </LinearLayout>
 
-    <ImageView
-        android:layout_width="145dp"
-        android:layout_height="101dp"
-        android:src="@drawable/car_verde"
-        android:id="@+id/carro_verde"
-        android:scaleType="fitXY"
-        android:layout_marginBottom="43dp"
-        android:layout_alignBottom="@+id/carro_amarelo"
-        android:layout_marginStart="12dp" />
+        <ImageView
+            android:layout_width="145dp"
+            android:layout_height="101dp"
+            android:src="@drawable/car_verde"
+            android:id="@+id/carro_verde"
+            android:scaleType="fitXY"
 
-    <ImageView
-        android:layout_width="145dp"
-        android:layout_height="101dp"
-        android:src="@drawable/car_amarelo"
-        android:id="@+id/carro_amarelo"
-        android:scaleType="fitXY"
-        android:cropToPadding="false"
-        android:layout_marginBottom="42dp"
-        android:layout_alignBottom="@+id/carro_vermelho"
-        android:layout_alignStart="@+id/carro_verde"
-        android:layout_marginStart="81dp" />
+            android:adjustViewBounds="false"
+            android:layout_marginBottom="34dp"
+            android:layout_alignBottom="@+id/carro_amarelo"
+            android:layout_alignParentStart="true" />
 
-    <ImageView
-        android:layout_width="145dp"
-        android:layout_height="101dp"
-        android:src="@drawable/car_vermelho"
-        android:id="@+id/carro_vermelho"
-        android:scaleType="fitXY"
-        android:layout_marginBottom="24dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/carro_verde"
-        android:layout_marginStart="24dp" />
+        <ImageView
+            android:layout_width="145dp"
+            android:layout_height="101dp"
+            android:src="@drawable/car_amarelo"
+            android:id="@+id/carro_amarelo"
+            android:scaleType="fitXY"
+            android:cropToPadding="false"
+
+            android:layout_marginBottom="42dp"
+            android:layout_alignBottom="@+id/carro_vermelho"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="145dp"
+            android:layout_height="101dp"
+            android:src="@drawable/car_vermelho"
+            android:id="@+id/carro_vermelho"
+            android:scaleType="fitXY"
+            android:layout_marginBottom="22dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true" />
+
+    </RelativeLayout>
+    >
+
+
 
 
 </RelativeLayout>
