@@ -46,7 +46,7 @@ public class Estacionar extends  AppCompatActivity {
                 integrator.setDesiredBarcodeFormats(IntentIntegrator.QR_CODE_TYPES);
                 integrator.setPrompt("Scan");
                 integrator.setCameraId(0);
-                integrator.setOrientationLocked(true);
+                integrator.setOrientationLocked(false);
                 integrator.setBeepEnabled(false);
                 integrator.setBarcodeImageEnabled(false);
                 integrator.initiateScan();
