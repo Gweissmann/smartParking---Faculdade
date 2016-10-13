@@ -8,8 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.controle.fadeInFadeOut;
 import com.google.android.gms.appindexing.Action;
@@ -28,12 +28,11 @@ public class AjudaTecnica extends AppCompatActivity {
 
 
     private GoogleApiClient client;
-    private ImageView checked;
-    private ImageView cancelar;
-    private TextView obrigado;
-    private TextView resposta2;
+
+
+    private Button btnchecked;
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajuda_tecnica);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -44,31 +43,30 @@ public class AjudaTecnica extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
         final ImageView demoImage = (ImageView) findViewById(R.id.lampada);
-        ImageView aceso = (ImageView)findViewById(R.id.aceso);
+        ImageView aceso = (ImageView) findViewById(R.id.aceso);
         int imagesToShow[] = {R.drawable.aceso};
 
         fadeInFadeOut.animate(demoImage, imagesToShow, 0, true);
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
 
     }
-    //terminar de ver a conexao extra entre activities
 
     public void onClick(View v) {
-        checked = (ImageView)findViewById(R.id.Checked);
-        cancelar = (ImageView)findViewById(R.id.Canceled);
+
         switch (v.getId()) {
             case btnCheck :
-                checked.setVisibility(View.VISIBLE);
-                cancelar.setVisibility(View.INVISIBLE);
                 Intent check = new Intent(this,AjudaTecnicaResposta.class);
+                check.putExtra("Visibility",true);
+                startActivity(check);
+                finish();
+
                 break;
             case btnCancelar:
-                checked.setVisibility(View.INVISIBLE);
-                cancelar .setVisibility(View.VISIBLE);
                 Intent cancelaract = new Intent(this,AjudaTecnicaResposta.class);
+                cancelaract.putExtra("Visibility",false);
+                startActivity(cancelaract);
+                finish();
                 break;
         }
     }

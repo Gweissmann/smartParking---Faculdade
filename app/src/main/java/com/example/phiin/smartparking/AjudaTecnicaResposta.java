@@ -6,21 +6,41 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.Thing;
 
 public class AjudaTecnicaResposta extends AppCompatActivity {
 
-
+    private ImageView imgchecked;
+    private ImageView imgcancelar;
+    private TextView txtPrimeiraRes;
+    private TextView txtSegundoRes;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ajuda_tecnica_resposta);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        txtPrimeiraRes = (TextView)findViewById(R.id.txtresposta1);
+        txtSegundoRes = (TextView)findViewById(R.id.txtresposta2);
+        imgchecked = (ImageView)findViewById(R.id.Checked);
+        imgcancelar = (ImageView)findViewById(R.id.Canceled);
 
+        if(getIntent().getExtras().getBoolean("Visibility")){
+          imgchecked.setVisibility(View.VISIBLE);
+            imgcancelar.setVisibility(View.INVISIBLE);
 
+        }
+        else {
+            imgchecked.setVisibility(View.INVISIBLE);
+            imgcancelar.setVisibility(View.VISIBLE);
+            txtPrimeiraRes.setVisibility(View.INVISIBLE);
+            txtSegundoRes.setText("Pedido de ajuda cancelado");
+        }
     }
 
     @Override

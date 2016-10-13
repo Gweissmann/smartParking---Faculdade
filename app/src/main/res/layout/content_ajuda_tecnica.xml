@@ -15,31 +15,6 @@
     tools:showIn="@layout/activity_ajuda_tecnica">
 
     <RelativeLayout android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentLeft="true">
-        <TextView
-            android:text="Por favor Aguarde"
-            android:textSize="21sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtAjuda2"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-
-        <TextView
-            android:text="a ajuda está a caminho."
-            android:textSize="21sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/txtAjuda1"
-            android:layout_marginTop="11dp"
-            android:layout_below="@+id/txtAjuda2"
-            android:layout_centerHorizontal="true" />
-
-    </RelativeLayout>
-
-    <RelativeLayout android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_centerInParent="true"
     android:layout_alignParentRight="true"
@@ -63,16 +38,6 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="33dp" />
-        <ImageView
-            android:layout_width="114dp"
-            android:layout_height="157dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/checked"
-            android:visibility="invisible"
-            android:id="@+id/Checked"
-            android:layout_marginTop="27dp"
-            android:layout_alignTop="@+id/lampada"
-            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
