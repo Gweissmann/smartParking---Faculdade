@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.example.phiin.smartparking">
 
     <application
@@ -11,6 +12,8 @@
         <activity
             android:name=".SmartParkingMain"
             android:label="@string/app_name"
+            android:screenOrientation="fullSensor"
+            tools:replace="screenOrientation"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +34,10 @@
             android:label="@string/title_activity_procurar_vaga"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".Estacionar"
+            android:label="Estacionar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Vagas"
             android:label="Vagas"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -38,6 +45,10 @@
             android:name=".AjudaTecnica"
             android:label="@string/title_activity_ajuda_tecnica"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AjudaTecnicaResposta"
+            android:label="Ajuda Tecnica"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

@@ -47,13 +47,14 @@ public class fadeInFadeOut {
             public void onAnimationEnd(Animation animation) {
                 if (images.length - 1 > imageIndex) {
                     animate(imageView, images, imageIndex + 1, forever); //Calls itself until it gets to the end of the array
-                } else {
+                }
+                else {
                     if (forever == true) {
                         animate(imageView, images, 0, forever);  //Calls itself to start the animation all over again in a loop if forever = true
                     }
                 }
-            }
 
+            }
             public void onAnimationRepeat(Animation animation) {
                 // TODO Auto-generated method stub
             }
@@ -61,6 +62,7 @@ public class fadeInFadeOut {
             public void onAnimationStart(Animation animation) {
                 // TODO Auto-generated method stub
             }
+
         });
     }
 }

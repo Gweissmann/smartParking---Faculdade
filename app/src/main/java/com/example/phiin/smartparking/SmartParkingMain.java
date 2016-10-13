@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import static com.example.phiin.smartparking.R.id.btnAjuda;
+import static com.example.phiin.smartparking.R.id.btnEstacionar;
 import static com.example.phiin.smartparking.R.id.btnProcurarVagas;
 import static com.example.phiin.smartparking.R.id.btnVagas;
 
@@ -44,6 +45,12 @@ public class SmartParkingMain extends AppCompatActivity implements View.OnClickL
                 case btnVagas:
                     Intent vagas = new Intent(SmartParkingMain.this, Vagas.class);
                     startActivity(vagas);
+
+                    break;
+
+                case btnEstacionar:
+                    Intent estacionar = new Intent(SmartParkingMain.this, Estacionar.class);
+                    startActivity(estacionar);
 
                     break;
 
