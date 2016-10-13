@@ -31,6 +31,10 @@
             android:label="@string/title_activity_procurar_vaga"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".Estacionar"
+            android:label="Estacionar"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".Vagas"
             android:label="Vagas"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -38,6 +42,10 @@
             android:name=".AjudaTecnica"
             android:label="@string/title_activity_ajuda_tecnica"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".AjudaTecnicaResposta"
+            android:label="Ajuda Tecnica"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
