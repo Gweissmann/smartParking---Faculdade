@@ -20,7 +20,7 @@ import com.google.zxing.integration.android.IntentResult;
 public class Estacionar extends  AppCompatActivity {
 
     private Button scan_btn;
-     public String vaga ;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +64,7 @@ public class Estacionar extends  AppCompatActivity {
                 Toast.makeText(this, "Você cancelou o Scan", Toast.LENGTH_LONG).show();
             } else {
                 Toast.makeText(this, result.getContents(), Toast.LENGTH_LONG).show();
-               vaga = result.getContents();
+                String vaga = result.getContents();
             }
         }else {
             super.onActivityResult(requestCode, resultCode, data);
