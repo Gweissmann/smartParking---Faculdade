@@ -1,10 +1,17 @@
 package com.example.phiin.smartparking;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+
+import static com.example.phiin.smartparking.R.id.btnBack;
+import static com.example.phiin.smartparking.R.id.btnCancelar;
+import static com.example.phiin.smartparking.R.id.btnCheck;
 
 public class ProcurarVagas extends AppCompatActivity {
 
@@ -21,6 +28,15 @@ public class ProcurarVagas extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+    }public void onClick(View v) {
+        switch (v.getId()) {
+            case btnBack:
+                Intent check = new Intent(this, SmartParkingMain.class);
+                startActivity(check);
+                finish();
+                break;
+
+        }
     }
 
     @Override
