@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,9 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Gu on 14/10/2016.
@@ -29,6 +33,9 @@ import java.net.URL;
 public  class Vagas extends AppCompatActivity {
 
     private TextView txtJson;
+    private String filmeName = new String();
+    private String ano = new String();
+    private String finalMovies = new String();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +56,7 @@ public  class Vagas extends AppCompatActivity {
         btnJson.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new JSONTask().execute("http://jsonparsing.parseapp.com/jsonData/moviesDemoItem.txt");
+                new JSONTask().execute("http://jsonparsing.parseapp.com/jsonData/moviesDemoList.txt");
             }
         });
     }
@@ -72,21 +79,37 @@ public  class Vagas extends AppCompatActivity {
 
                 StringBuffer buffer = new StringBuffer();
                 String line = "";
+
+                List<Object> jsonLine = new ArrayList<>();
+
                 while((line = reader.readLine()) != null){
-                    buffer.append(line);
+                    jsonLine.add(line);
                 }
 
-                String finalJson = buffer.toString();
+                Object jsonList = "";
+
+                for ( Object  o : jsonLine) {
+                    jsonList += o + "\t";
+                }
+
+
+
+                String finalJson = jsonList.toString();
+
+                Log.d("finalJson", finalJson);
 
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONArray parentArray = parentObject.getJSONArray("movies");
 
-                JSONObject finalObject = parentArray.getJSONObject(0);
 
-                String filmeName = finalObject.getString("movie");
-                int ano = finalObject.getInt("year");
+                for(int i = 0; i< parentArray.length(); i++) {
+                    JSONObject finalObject = parentArray.getJSONObject(i);
 
-                return filmeName + " - " + ano;
+                    filmeName = finalObject.getString("movie");
+                    ano = finalObject.getString("year");
+
+                    finalMovies += filmeName + " - " + ano + "\n";
+                }
 
             } catch (MalformedURLException e) {
                 e.printStackTrace();
@@ -103,7 +126,8 @@ public  class Vagas extends AppCompatActivity {
                 }catch (IOException e){
                     e.printStackTrace();
                 }
-                return null;
+
+                return finalMovies;
             }
         }
 
