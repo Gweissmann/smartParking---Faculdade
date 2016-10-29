@@ -52,7 +52,6 @@ public class Estacionar extends  AppCompatActivity {
                 integrator.initiateScan();
             }
         });
-
     }
 
     @Override
@@ -93,8 +92,6 @@ public class Estacionar extends  AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-
-
     }
 }
 

@@ -49,11 +49,9 @@ public class AjudaTecnica extends AppCompatActivity {
         fadeInFadeOut.animate(demoImage, imagesToShow, 0, true);
 
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
-
     }
 
     public void onClick(View v) {
-
         switch (v.getId()) {
             case btnCheck :
                 Intent check = new Intent(this,AjudaTecnicaResposta.class);
