@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -25,16 +26,28 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Gu on 14/10/2016.
  */
 
-public  class Vagas extends AppCompatActivity {
+public class Vagas extends AppCompatActivity {
 
-    private TextView txtJson;
-    private String filmeName = new String();
-    private String ano = new String();
+    private Timer autoUpdate;
+    private String sensor1 = new String();
+    private String sensor2 = new String();
+    private String sensor3 = new String();
+
+    private String valor1 = new String();
+    private String valor2 = new String();
+    private String valor3 = new String();
+
+    private ImageView car_vermelho = (ImageView) findViewById(R.id.car_vermelho);
+    private ImageView car_amarelo = (ImageView) findViewById(R.id.car_amarelo);
+    private ImageView car_verde = (ImageView) findViewById(R.id.car_verde);
+
     private String finalMovies = new String();
 
     @Override
@@ -43,25 +56,36 @@ public  class Vagas extends AppCompatActivity {
         setContentView(R.layout.activity_main_vaga);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-
-    //Método Json **********************************************************************************
-
-        Button btnJson = (Button)findViewById(R.id.btnJson);
-        txtJson = (TextView)findViewById(R.id.txtJson);
-
-        btnJson.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new JSONTask().execute("http://jsonparsing.parseapp.com/jsonData/moviesDemoList.txt");
-            }
-        });
     }
 
-    public class JSONTask extends AsyncTask<String,String,String>{
+
+    //Método Json *********************************************************************************
+
+    //Classe que atualiza activity automaticamente a cada 5 segundos; ******************************
+    @Override
+    public void onResume() {
+        super.onResume();
+        autoUpdate = new Timer();
+        autoUpdate.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        new JSONTask().execute("http://jsonparsing.parseapp.com/jsonData/moviesDemoList.txt");
+                    }
+                });
+            }
+        }, 0, 5000); // updates each 40 secs
+    }
+
+    //**********************************************************************************************
+
+
+    public class JSONTask extends AsyncTask<String, String, String> {
 
         @Override
         protected String doInBackground(String... params) {
@@ -75,40 +99,42 @@ public  class Vagas extends AppCompatActivity {
 
                 InputStream stream = connection.getInputStream();
 
-                reader = new BufferedReader( new InputStreamReader(stream));
+                reader = new BufferedReader(new InputStreamReader(stream));
 
                 StringBuffer buffer = new StringBuffer();
                 String line = "";
 
                 List<Object> jsonLine = new ArrayList<>();
 
-                while((line = reader.readLine()) != null){
+                while ((line = reader.readLine()) != null) {
                     jsonLine.add(line);
                 }
 
                 Object jsonList = "";
 
-                for ( Object  o : jsonLine) {
+                for (Object o : jsonLine) {
                     jsonList += o + "\t";
                 }
 
-
-
                 String finalJson = jsonList.toString();
-
-                Log.d("finalJson", finalJson);
 
                 JSONObject parentObject = new JSONObject(finalJson);
                 JSONArray parentArray = parentObject.getJSONArray("movies");
 
+                finalMovies = "";
 
-                for(int i = 0; i< parentArray.length(); i++) {
+                for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
 
-                    filmeName = finalObject.getString("movie");
-                    ano = finalObject.getString("year");
+                    sensor1 = finalObject.getString("sensor1");
+                    valor1 = finalObject.getString("valor1");
 
-                    finalMovies += filmeName + " - " + ano + "\n";
+                    sensor2 = finalObject.getString("sensor2");
+                    valor2 = finalObject.getString("valor2");
+
+                    sensor3 = finalObject.getString("sensor3");
+                    valor3 = finalObject.getString("valor3");
+
                 }
 
             } catch (MalformedURLException e) {
@@ -116,25 +142,26 @@ public  class Vagas extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
-                if (connection != null){
+                if (connection != null) {
                     connection.disconnect();
                 }
-                try{
+                try {
                     if (reader != null) {
                         reader.close();
                     }
-                }catch (IOException e){
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
 
                 return finalMovies;
             }
+
         }
 
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
-            txtJson.setText(result);
+
         }
     }
     //**********************************************************************************************
@@ -161,5 +188,6 @@ public  class Vagas extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
 
 
