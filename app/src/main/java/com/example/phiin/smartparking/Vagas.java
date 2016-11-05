@@ -44,10 +44,6 @@ public class Vagas extends AppCompatActivity {
     private String valor2 = new String();
     private String valor3 = new String();
 
-    private ImageView car_vermelho = (ImageView) findViewById(R.id.car_vermelho);
-    private ImageView car_amarelo = (ImageView) findViewById(R.id.car_amarelo);
-    private ImageView car_verde = (ImageView) findViewById(R.id.car_verde);
-
     private String finalMovies = new String();
 
     @Override
@@ -161,6 +157,9 @@ public class Vagas extends AppCompatActivity {
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+
+
+
 
         }
     }
