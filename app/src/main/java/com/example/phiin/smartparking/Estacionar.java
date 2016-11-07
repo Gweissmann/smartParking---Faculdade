@@ -31,6 +31,7 @@ public class Estacionar extends AppCompatActivity {
     private TextView txt_estacionar2;
     private ImageView img_noEstacionar;
     private String vagaSalva;
+    private String compVaga = "semVaga";
 
     private SharedPreferences save;
     private SharedPreferences.Editor editor;
@@ -58,8 +59,7 @@ public class Estacionar extends AppCompatActivity {
         btnClear = (Button) findViewById(R.id.btnClear);
         btnClear.setVisibility(View.INVISIBLE);
 
-        if (vagaSalva == null) {
-
+        if (vagaSalva.equals(compVaga)) {
             img_noEstacionar = (ImageView) findViewById(R.id.img_noEstacionar);
             img_noEstacionar.setVisibility(View.VISIBLE);
 
@@ -68,10 +68,7 @@ public class Estacionar extends AppCompatActivity {
 
             btnScan = (Button) findViewById(R.id.btnScan);
             btnScan.setVisibility(View.VISIBLE);
-
-
         } else {
-
             txt_estacionar1 = (TextView) findViewById(R.id.txt_estacionar1);
             txt_estacionar1.setVisibility(View.VISIBLE);
 
@@ -80,7 +77,6 @@ public class Estacionar extends AppCompatActivity {
 
             btnClear = (Button) findViewById(R.id.btnClear);
             btnClear.setVisibility(View.VISIBLE);
-
         }
 
     }
@@ -126,9 +122,14 @@ public class Estacionar extends AppCompatActivity {
             public void onClick(View v) {
 
                 editor = save.edit();
-                editor.clear();
+                editor.putString("var", "semVaga");
                 editor.commit();
-                Toast.makeText(getApplicationContext(),"Vaga Liberada!", Toast.LENGTH_LONG).show();
+
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+
+                Toast.makeText(getApplicationContext(), "Vaga Liberada!", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -143,9 +144,9 @@ public class Estacionar extends AppCompatActivity {
             if (result.getContents() == null) {
                 Toast.makeText(this, "Você cancelou o Scan", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this, "Vaga salva com sucesso!" + result.getContents(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Vaga salva com sucesso!", Toast.LENGTH_LONG).show();
 
-                vagaSalva = result.getContents();
+                vagaSalva = result.getContents().toString();
                 editor = save.edit();
                 editor.putString("var", vagaSalva);
                 editor.commit();
