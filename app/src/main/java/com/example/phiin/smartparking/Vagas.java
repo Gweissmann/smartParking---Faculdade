@@ -4,18 +4,19 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+
 import android.widget.ImageView;
-import android.widget.TextView;
+
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedInputStream;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,7 +26,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,19 +37,18 @@ import java.util.TimerTask;
 public class Vagas extends AppCompatActivity {
 
     private Timer autoUpdate;
-    private String sensor1 = new String();
-    private String sensor2 = new String();
-    private String sensor3 = new String();
 
-    private String valor1 = new String();
-    private String valor2 = new String();
-    private String valor3 = new String();
+    private Integer sensor1;
+    private Integer sensor2;
+    private Integer sensor3;
 
-    private ImageView car_vermelho = (ImageView) findViewById(R.id.car_vermelho);
-    private ImageView car_amarelo = (ImageView) findViewById(R.id.car_amarelo);
-    private ImageView car_verde = (ImageView) findViewById(R.id.car_verde);
+    private String valorList = new String();
+    private String valorFinal;
 
-    private String finalMovies = new String();
+    private ImageView car_verde;
+    private ImageView car_vermelho;
+    private ImageView car_amarelo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +59,66 @@ public class Vagas extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        car_verde = (ImageView) findViewById(R.id.car_verde);
+        car_amarelo = (ImageView) findViewById(R.id.car_amarelo);
+        car_vermelho = (ImageView) findViewById(R.id.car_vermelho);
+
+        car_verde.setVisibility(View.INVISIBLE);
+        car_amarelo.setVisibility(View.INVISIBLE);
+        car_vermelho.setVisibility(View.INVISIBLE);
+    }
+
+
+    public void verificaVagaEstacionada() {
+
+        if(sensor1 == 0 && sensor2 == 0 && sensor3 == 0){
+            car_verde.setVisibility(View.INVISIBLE);
+            car_amarelo.setVisibility(View.INVISIBLE);
+            car_vermelho.setVisibility(View.INVISIBLE);
+        }
+
+        if (sensor1 == 1 && sensor2 == 0 && sensor3 == 0) {
+            car_verde.setVisibility(View.VISIBLE);
+            car_amarelo.setVisibility(View.INVISIBLE);
+            car_vermelho.setVisibility(View.INVISIBLE);
+        }
+
+        if (sensor1 == 0 && sensor2 == 1 && sensor3 == 0) {
+            car_amarelo.setVisibility(View.VISIBLE);
+            car_verde.setVisibility(View.INVISIBLE);
+            car_vermelho.setVisibility(View.INVISIBLE);
+        }
+
+        if (sensor1 == 0 && sensor2 == 0 && sensor3 == 1) {
+            car_vermelho.setVisibility(View.VISIBLE);
+            car_verde.setVisibility(View.INVISIBLE);
+            car_amarelo.setVisibility(View.INVISIBLE);
+        }
+
+        if (sensor1 == 1 && sensor2 == 1 && sensor3 == 0) {
+            car_verde.setVisibility(View.VISIBLE);
+            car_amarelo.setVisibility(View.VISIBLE);
+            car_vermelho.setVisibility(View.INVISIBLE);
+        }
+
+        if (sensor1 == 1 && sensor2 == 0 && sensor3 == 1) {
+            car_verde.setVisibility(View.VISIBLE);
+            car_vermelho.setVisibility(View.VISIBLE);
+            car_amarelo.setVisibility(View.INVISIBLE);
+
+        }
+        if (sensor1 == 0 && sensor2 == 1 && sensor3 == 1) {
+            car_vermelho.setVisibility(View.VISIBLE);
+            car_amarelo.setVisibility(View.VISIBLE);
+            car_verde.setVisibility(View.INVISIBLE);
+
+        }
+        if (sensor1 == 1 && sensor2 == 1 && sensor3 == 1) {
+            car_verde.setVisibility(View.VISIBLE);
+            car_vermelho.setVisibility(View.VISIBLE);
+            car_amarelo.setVisibility(View.VISIBLE);
         }
     }
 
@@ -75,17 +135,18 @@ public class Vagas extends AppCompatActivity {
             public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        new JSONTask().execute("http://jsonparsing.parseapp.com/jsonData/moviesDemoList.txt");
+                        new JSONTask().execute("http://192.168.0.150");
                     }
                 });
             }
-        }, 0, 5000); // updates each 40 secs
+        }, 0, 2000); // updates each 40 secs
     }
 
     //**********************************************************************************************
 
 
     public class JSONTask extends AsyncTask<String, String, String> {
+
 
         @Override
         protected String doInBackground(String... params) {
@@ -119,21 +180,27 @@ public class Vagas extends AppCompatActivity {
                 String finalJson = jsonList.toString();
 
                 JSONObject parentObject = new JSONObject(finalJson);
-                JSONArray parentArray = parentObject.getJSONArray("movies");
+                JSONArray parentArray = parentObject.getJSONArray("sensores");
 
-                finalMovies = "";
+
+                valorList = "";
 
                 for (int i = 0; i < parentArray.length(); i++) {
                     JSONObject finalObject = parentArray.getJSONObject(i);
 
-                    sensor1 = finalObject.getString("sensor1");
-                    valor1 = finalObject.getString("valor1");
+                    String valor1 = new String();
+                    String valor2 = new String();
+                    String valor3 = new String();
 
-                    sensor2 = finalObject.getString("sensor2");
-                    valor2 = finalObject.getString("valor2");
+                    valor1 = finalObject.getString("sensor1");
+                    //Log.d("valor1", valor1);
+                    valor2 = finalObject.getString("sensor2");
+                    // Log.d("valor2", valor2);
+                    valor3 = finalObject.getString("sensor3");
+                    // Log.d("valor3", valor3);
 
-                    sensor3 = finalObject.getString("sensor3");
-                    valor3 = finalObject.getString("valor3");
+                    valorList = valor1 + valor2 + valor3;
+                    // Log.d("valorList", valorList);
 
                 }
 
@@ -153,7 +220,7 @@ public class Vagas extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                return finalMovies;
+                return valorList;
             }
 
         }
@@ -162,6 +229,14 @@ public class Vagas extends AppCompatActivity {
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
 
+            valorFinal = result;
+            Log.d("valorFinal",valorFinal);
+
+            sensor1 = Integer.parseInt(valorFinal.substring(0, 1));
+            sensor2 = Integer.parseInt(valorFinal.substring(1, 2));
+            sensor3 = Integer.parseInt(valorFinal.substring(2));
+
+            verificaVagaEstacionada();
         }
     }
     //**********************************************************************************************
@@ -188,6 +263,7 @@ public class Vagas extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
 
 
 

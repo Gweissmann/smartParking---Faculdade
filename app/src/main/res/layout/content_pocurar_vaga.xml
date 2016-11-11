@@ -5,67 +5,106 @@
     android:id="@+id/content_pocurar_vagas"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/img01"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ProcurarVagas"
-    android:background="@drawable/img01"
     tools:showIn="@layout/activity_pocurar_vaga">
 
     <ImageButton
+        android:id="@+id/btnBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/btnBack"
-        android:src="@drawable/btn_back_style"
-        android:background="@android:color/transparent"/>
-
-    <RelativeLayout android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true">
+        android:background="@android:color/transparent"
+        android:src="@drawable/btn_back_style" />
 
 
-        <ImageView
-            android:layout_width="145dp"
-            android:layout_height="101dp"
-            android:src="@drawable/car_verde"
-            android:id="@+id/carro_verde"
-            android:scaleType="fitXY"
-
-            android:adjustViewBounds="false"
-            android:layout_marginBottom="34dp"
-            android:layout_alignBottom="@+id/carro_amarelo"
-            android:layout_alignParentStart="true" />
+    <RelativeLayout
+        android:id="@+id/Relative2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <ImageView
-            android:layout_width="145dp"
-            android:layout_height="101dp"
-            android:src="@drawable/car_amarelo"
             android:id="@+id/carro_amarelo"
-            android:scaleType="fitXY"
-            android:cropToPadding="false"
-
-            android:layout_marginBottom="42dp"
-            android:layout_alignBottom="@+id/carro_vermelho"
-            android:layout_centerHorizontal="true" />
-
-        <ImageView
             android:layout_width="145dp"
             android:layout_height="101dp"
-            android:src="@drawable/car_vermelho"
-            android:id="@+id/carro_vermelho"
+
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="78dp"
             android:scaleType="fitXY"
-            android:layout_marginBottom="22dp"
+            android:src="@drawable/car_amarelo" />
+
+        <ImageView
+            android:id="@+id/marker_pin2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/carro_amarelo"
+            android:layout_alignEnd="@+id/carro_amarelo"
+            android:layout_marginEnd="12dp"
+            android:layout_weight="1"
+            android:src="@drawable/markerpin" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/Relative3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+
+        <ImageView
+            android:id="@+id/marker_pin3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/carro_vermelho"
+            android:layout_alignEnd="@+id/carro_vermelho"
+            android:layout_marginEnd="15dp"
+            android:layout_weight="1"
+            android:src="@drawable/markerpin" />
+
+        <ImageView
+            android:id="@+id/marker_pin1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_alignEnd="@+id/carro_verde"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="12dp"
+            android:src="@drawable/markerpin" />
+
+        <ImageView
+            android:id="@+id/carro_vermelho"
+            android:layout_width="145dp"
+            android:layout_height="101dp"
+            android:layout_marginBottom="35dp"
+            android:layout_marginEnd="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/car_vermelho"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true" />
 
+        <ImageView
+            android:id="@+id/carro_verde"
+            android:layout_width="145dp"
+            android:layout_height="101dp"
+
+            android:adjustViewBounds="false"
+            android:scaleType="fitXY"
+            android:src="@drawable/car_verde"
+            android:layout_below="@+id/marker_pin1"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="8dp" />
 
 
     </RelativeLayout>
-
 
 </RelativeLayout>

@@ -18,20 +18,20 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by Gu on 24/09/2016.
  */
 public class Estacionar extends AppCompatActivity {
 
-    private Button scan_btn;
+    private Button btnScan;
+    private Button btnClear;
     private TextView txt_noEstacionar;
     private TextView txt_estacionar1;
     private TextView txt_estacionar2;
     private ImageView img_noEstacionar;
     private String vagaSalva;
+    private String compVaga = "semVaga";
 
     private SharedPreferences save;
     private SharedPreferences.Editor editor;
@@ -39,7 +39,7 @@ public class Estacionar extends AppCompatActivity {
 
     // Método que verifica se já está com vaga salva************************************************
 
-    public void verificaVaga(){
+    public void verificaVaga() {
 
         img_noEstacionar = (ImageView) findViewById(R.id.img_noEstacionar);
         img_noEstacionar.setVisibility(View.INVISIBLE);
@@ -53,25 +53,30 @@ public class Estacionar extends AppCompatActivity {
         txt_noEstacionar = (TextView) findViewById(R.id.txt_noEstacionar);
         txt_noEstacionar.setVisibility(View.INVISIBLE);
 
-        if (vagaSalva == null) {
+        btnScan = (Button) findViewById(R.id.btnScan);
+        btnScan.setVisibility(View.INVISIBLE);
 
+        btnClear = (Button) findViewById(R.id.btnClear);
+        btnClear.setVisibility(View.INVISIBLE);
+
+        if (vagaSalva.equals(compVaga)) {
             img_noEstacionar = (ImageView) findViewById(R.id.img_noEstacionar);
             img_noEstacionar.setVisibility(View.VISIBLE);
 
             txt_noEstacionar = (TextView) findViewById(R.id.txt_noEstacionar);
             txt_noEstacionar.setVisibility(View.VISIBLE);
 
-        }else{
-
+            btnScan = (Button) findViewById(R.id.btnScan);
+            btnScan.setVisibility(View.VISIBLE);
+        } else {
             txt_estacionar1 = (TextView) findViewById(R.id.txt_estacionar1);
             txt_estacionar1.setVisibility(View.VISIBLE);
 
             txt_estacionar2 = (TextView) findViewById(R.id.txt_estacionar2);
             txt_estacionar2.setVisibility(View.VISIBLE);
 
-            scan_btn = (Button) findViewById(R.id.scan_btn);
-            scan_btn.setEnabled(false);
-
+            btnClear = (Button) findViewById(R.id.btnClear);
+            btnClear.setVisibility(View.VISIBLE);
         }
 
     }
@@ -90,15 +95,15 @@ public class Estacionar extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-
-
-        verificaVaga();
+        save = getSharedPreferences("var",
+                Context.MODE_PRIVATE);
+        vagaSalva = save.getString("var", null);
 
         //Classe QrCode ****************************************************************************
 
-        scan_btn = (Button) findViewById(R.id.scan_btn);
+        btnScan = (Button) findViewById(R.id.btnScan);
         final Activity activity = this;
-        scan_btn.setOnClickListener(new View.OnClickListener() {
+        btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 IntentIntegrator integrator = new IntentIntegrator(activity);
@@ -111,6 +116,24 @@ public class Estacionar extends AppCompatActivity {
             }
         });
 
+        btnClear = (Button) findViewById(R.id.btnClear);
+        btnClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                editor = save.edit();
+                editor.putString("var", "semVaga");
+                editor.commit();
+
+                Intent intent = getIntent();
+                finish();
+                startActivity(intent);
+
+                Toast.makeText(getApplicationContext(), "Vaga Liberada!", Toast.LENGTH_LONG).show();
+            }
+        });
+
+        verificaVaga();
     }
 
     @Override
@@ -121,10 +144,12 @@ public class Estacionar extends AppCompatActivity {
             if (result.getContents() == null) {
                 Toast.makeText(this, "Você cancelou o Scan", Toast.LENGTH_LONG).show();
             } else {
-                Toast.makeText(this,"Vaga salva com sucesso!"+result.getContents(), Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Vaga salva com sucesso!", Toast.LENGTH_LONG).show();
 
-               vagaSalva = result.getContents();
-               txt_estacionar2.setText(vagaSalva);
+                vagaSalva = result.getContents().toString();
+                editor = save.edit();
+                editor.putString("var", vagaSalva);
+                editor.commit();
 
             }
         } else {
@@ -135,11 +160,13 @@ public class Estacionar extends AppCompatActivity {
     //**********************************************************************************************
 
 
-
     @Override
     protected void onResume() {
         super.onResume();
-
+        save = getSharedPreferences("var",
+                Context.MODE_PRIVATE);
+        vagaSalva = save.getString("var", null);
+        txt_estacionar2.setText(vagaSalva);
         verificaVaga();
     }
 
