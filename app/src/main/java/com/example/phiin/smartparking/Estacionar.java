@@ -31,7 +31,7 @@ public class Estacionar extends AppCompatActivity {
     private TextView txt_estacionar2;
     private ImageView img_noEstacionar;
     private String vagaSalva;
-    private String compVaga = "semVaga";
+
 
     private SharedPreferences save;
     private SharedPreferences.Editor editor;
@@ -40,6 +40,8 @@ public class Estacionar extends AppCompatActivity {
     // Método que verifica se já está com vaga salva************************************************
 
     public void verificaVaga() {
+
+        String compVaga = "semVaga";
 
         img_noEstacionar = (ImageView) findViewById(R.id.img_noEstacionar);
         img_noEstacionar.setVisibility(View.INVISIBLE);
@@ -97,7 +99,7 @@ public class Estacionar extends AppCompatActivity {
         }
         save = getSharedPreferences("var",
                 Context.MODE_PRIVATE);
-        vagaSalva = save.getString("var", null);
+        vagaSalva = save.getString("var", "semVaga");
 
         //Classe QrCode ****************************************************************************
 
@@ -165,7 +167,7 @@ public class Estacionar extends AppCompatActivity {
         super.onResume();
         save = getSharedPreferences("var",
                 Context.MODE_PRIVATE);
-        vagaSalva = save.getString("var", null);
+        vagaSalva = save.getString("var", "semVaga");
         txt_estacionar2.setText(vagaSalva);
         verificaVaga();
     }
