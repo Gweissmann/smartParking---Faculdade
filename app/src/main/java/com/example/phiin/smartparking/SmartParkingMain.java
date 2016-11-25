@@ -30,7 +30,7 @@ public class SmartParkingMain extends AppCompatActivity implements View.OnClickL
 
             Button btnVaga = (Button) findViewById(R.id.btnVagas);
             Button Ajuda = (Button) findViewById(R.id.btnAjuda);
-            TextView txtNumeroVagas = (TextView) findViewById(R.id.txtvNvagas);
+            TextView txtNumeroVagas = (TextView) findViewById(R.id.txtNvagas);
 
 
         }

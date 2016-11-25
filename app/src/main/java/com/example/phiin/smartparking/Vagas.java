@@ -1,5 +1,7 @@
 package com.example.phiin.smartparking;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,7 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import android.widget.ImageView;
-
+import android.widget.TextView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -38,6 +41,8 @@ public class Vagas extends AppCompatActivity {
 
     private Timer autoUpdate;
 
+    boolean conectado;
+
     private Integer sensor1;
     private Integer sensor2;
     private Integer sensor3;
@@ -49,10 +54,11 @@ public class Vagas extends AppCompatActivity {
     private ImageView car_vermelho;
     private ImageView car_amarelo;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        verificaConexao();
+
         setContentView(R.layout.activity_main_vaga);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,85 +74,52 @@ public class Vagas extends AppCompatActivity {
         car_verde.setVisibility(View.INVISIBLE);
         car_amarelo.setVisibility(View.INVISIBLE);
         car_vermelho.setVisibility(View.INVISIBLE);
+
     }
-
-
-    public void verificaVagaEstacionada() {
-
-        if(sensor1 == 0 && sensor2 == 0 && sensor3 == 0){
-            car_verde.setVisibility(View.INVISIBLE);
-            car_amarelo.setVisibility(View.INVISIBLE);
-            car_vermelho.setVisibility(View.INVISIBLE);
-        }
-
-        if (sensor1 == 1 && sensor2 == 0 && sensor3 == 0) {
-            car_verde.setVisibility(View.VISIBLE);
-            car_amarelo.setVisibility(View.INVISIBLE);
-            car_vermelho.setVisibility(View.INVISIBLE);
-        }
-
-        if (sensor1 == 0 && sensor2 == 1 && sensor3 == 0) {
-            car_amarelo.setVisibility(View.VISIBLE);
-            car_verde.setVisibility(View.INVISIBLE);
-            car_vermelho.setVisibility(View.INVISIBLE);
-        }
-
-        if (sensor1 == 0 && sensor2 == 0 && sensor3 == 1) {
-            car_vermelho.setVisibility(View.VISIBLE);
-            car_verde.setVisibility(View.INVISIBLE);
-            car_amarelo.setVisibility(View.INVISIBLE);
-        }
-
-        if (sensor1 == 1 && sensor2 == 1 && sensor3 == 0) {
-            car_verde.setVisibility(View.VISIBLE);
-            car_amarelo.setVisibility(View.VISIBLE);
-            car_vermelho.setVisibility(View.INVISIBLE);
-        }
-
-        if (sensor1 == 1 && sensor2 == 0 && sensor3 == 1) {
-            car_verde.setVisibility(View.VISIBLE);
-            car_vermelho.setVisibility(View.VISIBLE);
-            car_amarelo.setVisibility(View.INVISIBLE);
-
-        }
-        if (sensor1 == 0 && sensor2 == 1 && sensor3 == 1) {
-            car_vermelho.setVisibility(View.VISIBLE);
-            car_amarelo.setVisibility(View.VISIBLE);
-            car_verde.setVisibility(View.INVISIBLE);
-
-        }
-        if (sensor1 == 1 && sensor2 == 1 && sensor3 == 1) {
-            car_verde.setVisibility(View.VISIBLE);
-            car_vermelho.setVisibility(View.VISIBLE);
-            car_amarelo.setVisibility(View.VISIBLE);
-        }
-    }
-
-
-    //Método Json *********************************************************************************
 
     //Classe que atualiza activity automaticamente a cada 5 segundos; ******************************
     @Override
     public void onResume() {
         super.onResume();
+
         autoUpdate = new Timer();
         autoUpdate.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        new JSONTask().execute("http://192.168.0.150");
+                            new JSONTask().execute("http://192.168.0.150");
                     }
                 });
             }
-        }, 0, 2000); // updates each 40 secs
+        }, 0, 3000); // updates each 40 secs
+
     }
 
-    //**********************************************************************************************
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            new JSONTask().cancel(true);
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 
     public class JSONTask extends AsyncTask<String, String, String> {
-
 
         @Override
         protected String doInBackground(String... params) {
@@ -154,12 +127,13 @@ public class Vagas extends AppCompatActivity {
             BufferedReader reader = null;
 
             try {
+                int codigoResposta;
+                InputStream stream;
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
-                InputStream stream = connection.getInputStream();
-
+                stream = connection.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(stream));
 
                 StringBuffer buffer = new StringBuffer();
@@ -230,7 +204,6 @@ public class Vagas extends AppCompatActivity {
             super.onPostExecute(result);
 
             valorFinal = result;
-            Log.d("valorFinal",valorFinal);
 
             sensor1 = Integer.parseInt(valorFinal.substring(0, 1));
             sensor2 = Integer.parseInt(valorFinal.substring(1, 2));
@@ -239,29 +212,76 @@ public class Vagas extends AppCompatActivity {
             verificaVagaEstacionada();
         }
     }
-    //**********************************************************************************************
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public boolean verificaConexao() {
+        ConnectivityManager conectivtyManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (conectivtyManager.getActiveNetworkInfo() != null
+                && conectivtyManager.getActiveNetworkInfo().isAvailable()
+                && conectivtyManager.getActiveNetworkInfo().isConnected()) {
+            conectado = true;
+        } else {
+            conectado = false;
+        }
+        return conectado;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    public void verificaVagaEstacionada() {
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+        if (sensor1 == 0 && sensor2 == 0 && sensor3 == 0) {
+            car_verde.setVisibility(View.INVISIBLE);
+            car_amarelo.setVisibility(View.INVISIBLE);
+            car_vermelho.setVisibility(View.INVISIBLE);
+
         }
 
-        return super.onOptionsItemSelected(item);
+        if (sensor1 == 1 && sensor2 == 0 && sensor3 == 0) {
+            car_verde.setVisibility(View.VISIBLE);
+            car_amarelo.setVisibility(View.INVISIBLE);
+            car_vermelho.setVisibility(View.INVISIBLE);
+
+        }
+
+        if (sensor1 == 0 && sensor2 == 1 && sensor3 == 0) {
+            car_amarelo.setVisibility(View.VISIBLE);
+            car_verde.setVisibility(View.INVISIBLE);
+            car_vermelho.setVisibility(View.INVISIBLE);
+
+        }
+
+        if (sensor1 == 0 && sensor2 == 0 && sensor3 == 1) {
+            car_vermelho.setVisibility(View.VISIBLE);
+            car_verde.setVisibility(View.INVISIBLE);
+            car_amarelo.setVisibility(View.INVISIBLE);
+
+        }
+
+        if (sensor1 == 1 && sensor2 == 1 && sensor3 == 0) {
+            car_verde.setVisibility(View.VISIBLE);
+            car_amarelo.setVisibility(View.VISIBLE);
+            car_vermelho.setVisibility(View.INVISIBLE);
+
+        }
+
+        if (sensor1 == 1 && sensor2 == 0 && sensor3 == 1) {
+            car_verde.setVisibility(View.VISIBLE);
+            car_vermelho.setVisibility(View.VISIBLE);
+            car_amarelo.setVisibility(View.INVISIBLE);
+
+        }
+        if (sensor1 == 0 && sensor2 == 1 && sensor3 == 1) {
+            car_vermelho.setVisibility(View.VISIBLE);
+            car_amarelo.setVisibility(View.VISIBLE);
+            car_verde.setVisibility(View.INVISIBLE);
+
+        }
+        if (sensor1 == 1 && sensor2 == 1 && sensor3 == 1) {
+            car_verde.setVisibility(View.VISIBLE);
+            car_vermelho.setVisibility(View.VISIBLE);
+            car_amarelo.setVisibility(View.VISIBLE);
+
+        }
     }
+
 }
 
 

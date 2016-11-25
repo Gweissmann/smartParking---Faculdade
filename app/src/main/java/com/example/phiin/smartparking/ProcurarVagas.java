@@ -3,6 +3,7 @@ package com.example.phiin.smartparking;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,8 +12,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -29,9 +30,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.security.auth.Destroyable;
+
 import static com.example.phiin.smartparking.R.id.btnBack;
-import static com.example.phiin.smartparking.R.id.btnCancelar;
-import static com.example.phiin.smartparking.R.id.btnCheck;
 
 public class ProcurarVagas extends AppCompatActivity {
 
@@ -48,6 +49,8 @@ public class ProcurarVagas extends AppCompatActivity {
 
     private Timer autoUpdatee;
 
+    boolean conectado;
+
     private Integer sensor1;
     private Integer sensor2;
     private Integer sensor3;
@@ -63,94 +66,6 @@ public class ProcurarVagas extends AppCompatActivity {
     private SharedPreferences save;
     private SharedPreferences.Editor editor;
 
-    public void verificaPin() {
-
-        pin1 = (ImageView) findViewById(R.id.marker_pin1);
-        pin2 = (ImageView) findViewById(R.id.marker_pin2);
-        pin3 = (ImageView) findViewById(R.id.marker_pin3);
-
-        save = getSharedPreferences("var",
-                Context.MODE_PRIVATE);
-        pegaVaga = save.getString("var", null);
-
-        if (pegaVaga.equals(compVaga)) {
-            pin1.setVisibility(View.INVISIBLE);
-            pin2.setVisibility(View.INVISIBLE);
-            pin3.setVisibility(View.INVISIBLE);
-
-        } else {
-
-            if (pegaVaga.equals(vaga1)) {
-                pin1.setVisibility(View.VISIBLE);
-                pin2.setVisibility(View.INVISIBLE);
-                pin3.setVisibility(View.INVISIBLE);
-            }
-            if (pegaVaga.equals(vaga2)) {
-                pin1.setVisibility(View.INVISIBLE);
-                pin2.setVisibility(View.VISIBLE);
-                pin3.setVisibility(View.INVISIBLE);
-            }
-            if (pegaVaga.equals(vaga3)) {
-                pin1.setVisibility(View.INVISIBLE);
-                pin2.setVisibility(View.INVISIBLE);
-                pin3.setVisibility(View.VISIBLE);
-            }
-        }
-    }
-
-    public void verificaVagaEstacionada() {
-
-        if(sensor1 == 0 && sensor2 == 0 && sensor3 == 0){
-            carro_verde.setVisibility(View.INVISIBLE);
-            carro_amarelo.setVisibility(View.INVISIBLE);
-            carro_vermelho.setVisibility(View.INVISIBLE);
-        }
-
-
-        if (sensor1 == 1 && sensor2 == 0 && sensor3 == 0) {
-            carro_verde.setVisibility(View.VISIBLE);
-            carro_amarelo.setVisibility(View.INVISIBLE);
-            carro_vermelho.setVisibility(View.INVISIBLE);
-        }
-
-        if (sensor1 == 0 && sensor2 == 1 && sensor3 == 0) {
-            carro_amarelo.setVisibility(View.VISIBLE);
-            carro_verde.setVisibility(View.INVISIBLE);
-            carro_vermelho.setVisibility(View.INVISIBLE);
-        }
-
-        if (sensor1 == 0 && sensor2 == 0 && sensor3 == 1) {
-            carro_vermelho.setVisibility(View.VISIBLE);
-            carro_verde.setVisibility(View.INVISIBLE);
-            carro_amarelo.setVisibility(View.INVISIBLE);
-        }
-
-        if (sensor1 == 1 && sensor2 == 1 && sensor3 == 0) {
-            carro_verde.setVisibility(View.VISIBLE);
-            carro_amarelo.setVisibility(View.VISIBLE);
-            carro_vermelho.setVisibility(View.INVISIBLE);
-        }
-
-        if (sensor1 == 1 && sensor2 == 0 && sensor3 == 1) {
-            carro_verde.setVisibility(View.VISIBLE);
-            carro_vermelho.setVisibility(View.VISIBLE);
-            carro_amarelo.setVisibility(View.INVISIBLE);
-
-        }
-        if (sensor1 == 0 && sensor2 == 1 && sensor3 == 1) {
-            carro_vermelho.setVisibility(View.VISIBLE);
-            carro_amarelo.setVisibility(View.VISIBLE);
-            carro_verde.setVisibility(View.INVISIBLE);
-
-        }
-        if (sensor1 == 1 && sensor2 == 1 && sensor3 == 1) {
-            carro_verde.setVisibility(View.VISIBLE);
-            carro_vermelho.setVisibility(View.VISIBLE);
-            carro_amarelo.setVisibility(View.VISIBLE);
-        }
-    }
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -163,7 +78,6 @@ public class ProcurarVagas extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
-        verificaPin();
 
         carro_verde = (ImageView) findViewById(R.id.carro_verde);
         carro_amarelo = (ImageView) findViewById(R.id.carro_amarelo);
@@ -195,14 +109,39 @@ public class ProcurarVagas extends AppCompatActivity {
             public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                        new JSONTask().execute("http://192.168.0.150");
+                            new JSONTask().execute("http://192.168.0.150");
                     }
                 });
             }
-        }, 0, 2000); // 2 segundos
+        }, 0, 3000); // 2 segundos
 
         verificaPin();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        //Adicionar seta de voltar
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            new JSONTask().cancel(true);
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 
     public class JSONTask extends AsyncTask<String, String, String> {
 
@@ -283,38 +222,114 @@ public class ProcurarVagas extends AppCompatActivity {
             super.onPostExecute(result);
 
             valorFinale = result;
-            Log.d("valorFinale",valorFinale);
+
 
             sensor1 = Integer.parseInt(valorFinale.substring(0, 1));
             sensor2 = Integer.parseInt(valorFinale.substring(1, 2));
             sensor3 = Integer.parseInt(valorFinale.substring(2));
 
             verificaVagaEstacionada();
+
         }
     }
-    //**********************************************************************************************
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public boolean verificaConexao() {
+        ConnectivityManager conectivtyManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (conectivtyManager.getActiveNetworkInfo() != null
+                && conectivtyManager.getActiveNetworkInfo().isAvailable()
+                && conectivtyManager.getActiveNetworkInfo().isConnected()) {
+            conectado = true;
+        } else {
+            conectado = false;
+        }
+        return conectado;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
+    public void verificaPin() {
 
-        if (id == R.id.action_settings) {
-            return true;
+        pin1 = (ImageView) findViewById(R.id.marker_pin1);
+        pin2 = (ImageView) findViewById(R.id.marker_pin2);
+        pin3 = (ImageView) findViewById(R.id.marker_pin3);
+
+        save = getSharedPreferences("var",
+                Context.MODE_PRIVATE);
+        pegaVaga = save.getString("var", "semVaga");
+
+        if (pegaVaga.equals(compVaga)) {
+            pin1.setVisibility(View.INVISIBLE);
+            pin2.setVisibility(View.INVISIBLE);
+            pin3.setVisibility(View.INVISIBLE);
+
+        } else {
+
+            if (pegaVaga.equals(vaga1)) {
+                pin1.setVisibility(View.VISIBLE);
+                pin2.setVisibility(View.INVISIBLE);
+                pin3.setVisibility(View.INVISIBLE);
+            }
+            if (pegaVaga.equals(vaga2)) {
+                pin1.setVisibility(View.INVISIBLE);
+                pin2.setVisibility(View.VISIBLE);
+                pin3.setVisibility(View.INVISIBLE);
+            }
+            if (pegaVaga.equals(vaga3)) {
+                pin1.setVisibility(View.INVISIBLE);
+                pin2.setVisibility(View.INVISIBLE);
+                pin3.setVisibility(View.VISIBLE);
+            }
         }
-        //Adicionar seta de voltar
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+    }
+
+    public void verificaVagaEstacionada() {
+
+        if(sensor1 == 0 && sensor2 == 0 && sensor3 == 0){
+            carro_verde.setVisibility(View.INVISIBLE);
+            carro_amarelo.setVisibility(View.INVISIBLE);
+            carro_vermelho.setVisibility(View.INVISIBLE);
         }
 
-        return super.onOptionsItemSelected(item);
+
+        if (sensor1 == 1 && sensor2 == 0 && sensor3 == 0) {
+            carro_verde.setVisibility(View.VISIBLE);
+            carro_amarelo.setVisibility(View.INVISIBLE);
+            carro_vermelho.setVisibility(View.INVISIBLE);
+        }
+
+        if (sensor1 == 0 && sensor2 == 1 && sensor3 == 0) {
+            carro_amarelo.setVisibility(View.VISIBLE);
+            carro_verde.setVisibility(View.INVISIBLE);
+            carro_vermelho.setVisibility(View.INVISIBLE);
+        }
+
+        if (sensor1 == 0 && sensor2 == 0 && sensor3 == 1) {
+            carro_vermelho.setVisibility(View.VISIBLE);
+            carro_verde.setVisibility(View.INVISIBLE);
+            carro_amarelo.setVisibility(View.INVISIBLE);
+        }
+
+        if (sensor1 == 1 && sensor2 == 1 && sensor3 == 0) {
+            carro_verde.setVisibility(View.VISIBLE);
+            carro_amarelo.setVisibility(View.VISIBLE);
+            carro_vermelho.setVisibility(View.INVISIBLE);
+        }
+
+        if (sensor1 == 1 && sensor2 == 0 && sensor3 == 1) {
+            carro_verde.setVisibility(View.VISIBLE);
+            carro_vermelho.setVisibility(View.VISIBLE);
+            carro_amarelo.setVisibility(View.INVISIBLE);
+
+        }
+        if (sensor1 == 0 && sensor2 == 1 && sensor3 == 1) {
+            carro_vermelho.setVisibility(View.VISIBLE);
+            carro_amarelo.setVisibility(View.VISIBLE);
+            carro_verde.setVisibility(View.INVISIBLE);
+
+        }
+        if (sensor1 == 1 && sensor2 == 1 && sensor3 == 1) {
+            carro_verde.setVisibility(View.VISIBLE);
+            carro_vermelho.setVisibility(View.VISIBLE);
+            carro_amarelo.setVisibility(View.VISIBLE);
+        }
     }
 }
 
