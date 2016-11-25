@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:screenOrientation="portrait"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:context=".SmartParkingMain">
@@ -22,6 +21,7 @@
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/AppTheme.PopupOverlay"
         app:title="SmartParking"
+        android:titleTextColor="#ffffff"
         />
 
     <include layout="@layout/content_smart_parking"
