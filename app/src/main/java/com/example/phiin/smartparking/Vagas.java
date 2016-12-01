@@ -125,10 +125,11 @@ public class Vagas extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
+            InputStream stream = null;
 
             try {
                 int codigoResposta;
-                InputStream stream;
+
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
@@ -183,6 +184,13 @@ public class Vagas extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
+                if(stream != null){
+                    try {
+                        stream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 if (connection != null) {
                     connection.disconnect();
                 }

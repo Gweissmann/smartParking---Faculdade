@@ -149,13 +149,14 @@ public class ProcurarVagas extends AppCompatActivity {
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
             BufferedReader reader = null;
+            InputStream stream = null;
 
             try {
                 URL url = new URL(params[0]);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
 
-                InputStream stream = connection.getInputStream();
+                stream = connection.getInputStream();
 
                 reader = new BufferedReader(new InputStreamReader(stream));
 
@@ -201,6 +202,13 @@ public class ProcurarVagas extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
+                if(stream != null){
+                    try {
+                        stream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
                 if (connection != null) {
                     connection.disconnect();
                 }
@@ -222,7 +230,6 @@ public class ProcurarVagas extends AppCompatActivity {
             super.onPostExecute(result);
 
             valorFinale = result;
-
 
             sensor1 = Integer.parseInt(valorFinale.substring(0, 1));
             sensor2 = Integer.parseInt(valorFinale.substring(1, 2));
