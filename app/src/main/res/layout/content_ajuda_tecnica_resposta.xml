@@ -16,11 +16,11 @@
 
     <RelativeLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop ="103dp"
+        android:id="@+id/relativeLayout"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop ="50dp"
-        android:layout_alignParentEnd="true"
-        android:id="@+id/relativeLayout">
+        android:layout_alignParentEnd="true">
         <TextView
             android:text="Obrigado"
             android:textSize="21sp"
@@ -45,7 +45,7 @@
 
     <RelativeLayout android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="23dp"
+        android:layout_marginTop="68dp"
         android:layout_below="@+id/relativeLayout"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true">

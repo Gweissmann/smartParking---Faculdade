@@ -9,7 +9,6 @@
 
     <include layout="@layout/content_ajuda_tecnica" />
 
-
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,7 +20,8 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay"
-            app:title="Ajuda Técnica"/>
+            app:title="Ajuda Técnica"
+            app:titleTextColor="@color/common_google_signin_btn_text_dark_focused" />
 
     </android.support.design.widget.AppBarLayout>
 

@@ -45,13 +45,11 @@ public class SmartParkingMain extends AppCompatActivity implements View.OnClickL
                 case btnVagas:
                     Intent vagas = new Intent(SmartParkingMain.this, Vagas.class);
                     startActivity(vagas);
-
                     break;
 
                 case btnEstacionar:
                     Intent estacionar = new Intent(SmartParkingMain.this, Estacionar.class);
                     startActivity(estacionar);
-
                     break;
 
                 case btnAjuda:
@@ -78,9 +76,12 @@ public class SmartParkingMain extends AppCompatActivity implements View.OnClickL
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutIntent = new Intent(this, ajuda.class);
+            startActivity(aboutIntent);
         }
-
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+        }
         return super.onOptionsItemSelected(item);
     }
 }

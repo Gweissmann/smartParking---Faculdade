@@ -1,5 +1,6 @@
 package com.example.phiin.smartparking;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -29,6 +30,8 @@ import java.util.List;
 
 import java.util.Timer;
 import java.util.TimerTask;
+
+import static com.example.phiin.smartparking.R.id.btn_Back;
 
 /**
  * Created by Gu on 14/10/2016.
@@ -68,6 +71,17 @@ public class Vagas extends AppCompatActivity {
         car_verde.setVisibility(View.INVISIBLE);
         car_amarelo.setVisibility(View.INVISIBLE);
         car_vermelho.setVisibility(View.INVISIBLE);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case btn_Back:
+                Intent back = new Intent(this, SmartParkingMain.class);
+                back.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(back);
+                finish();
+                break;
+        }
     }
 
 
@@ -254,12 +268,12 @@ public class Vagas extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutIntent = new Intent(this, ajuda.class);
+            startActivity(aboutIntent);
         }
         if (item.getItemId() == android.R.id.home) {
             finish();
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

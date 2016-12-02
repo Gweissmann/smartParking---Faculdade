@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import org.json.JSONArray;
@@ -29,9 +28,7 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.example.phiin.smartparking.R.id.btnBack;
-import static com.example.phiin.smartparking.R.id.btnCancelar;
-import static com.example.phiin.smartparking.R.id.btnCheck;
+import static com.example.phiin.smartparking.R.id.btn_Back;
 
 public class ProcurarVagas extends AppCompatActivity {
 
@@ -176,9 +173,10 @@ public class ProcurarVagas extends AppCompatActivity {
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case btnBack:
-                Intent check = new Intent(this, SmartParkingMain.class);
-                startActivity(check);
+            case btn_Back:
+                Intent back = new Intent(this, SmartParkingMain.class);
+                back.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(back);
                 finish();
                 break;
 
@@ -307,7 +305,8 @@ public class ProcurarVagas extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutIntent = new Intent(this, ajuda.class);
+            startActivity(aboutIntent);
         }
         //Adicionar seta de voltar
         if (item.getItemId() == android.R.id.home) {

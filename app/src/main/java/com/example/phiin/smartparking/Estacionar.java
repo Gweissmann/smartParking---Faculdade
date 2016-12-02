@@ -185,7 +185,8 @@ public class Estacionar extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutIntent = new Intent(this, ajuda.class);
+            startActivity(aboutIntent);
         }
         //Adicionar seta de voltar
         if (item.getItemId() == android.R.id.home) {
