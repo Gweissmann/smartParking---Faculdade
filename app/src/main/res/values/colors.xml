@@ -3,4 +3,5 @@
     <color name="colorPrimary">#FFA726</color>
     <color name="colorPrimaryDark">#FF9800</color>
     <color name="Botoes">#666666</color>
+    <color name = "black">#000</color>
 </resources>

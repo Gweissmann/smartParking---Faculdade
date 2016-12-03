@@ -81,7 +81,8 @@ public class AjudaTecnica extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutIntent = new Intent(this, ajuda.class);
+            startActivity(aboutIntent);
         }
         if (item.getItemId() == android.R.id.home) {
             finish();

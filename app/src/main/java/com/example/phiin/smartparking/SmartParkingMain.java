@@ -97,7 +97,11 @@ public class SmartParkingMain extends AppCompatActivity implements View.OnClickL
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutIntent = new Intent(this, ajuda.class);
+            startActivity(aboutIntent);
+        }
+        if (item.getItemId() == android.R.id.home) {
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

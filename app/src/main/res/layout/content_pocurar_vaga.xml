@@ -14,24 +14,23 @@
     tools:context=".ProcurarVagas"
     tools:showIn="@layout/activity_pocurar_vaga">
 
-    <ImageButton
-        android:id="@+id/btnBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:text=""
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:background="@drawable/btn_back_style"
+        android:id="@+id/btn_Back"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/transparent"
-        android:src="@drawable/btn_back_style" />
+        android:onClick="onClick"
+        />
 
 
     <RelativeLayout
         android:id="@+id/Relative2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_height="match_parent">
 
-        <ImageView
+    <ImageView
             android:id="@+id/carro_amarelo"
             android:layout_width="145dp"
             android:layout_height="101dp"

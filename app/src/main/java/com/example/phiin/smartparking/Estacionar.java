@@ -141,7 +141,6 @@ public class Estacionar extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-
         if (result != null) {
             if (result.getContents() == null) {
                 Toast.makeText(this, "Você cancelou o Scan", Toast.LENGTH_LONG).show();
@@ -185,7 +184,8 @@ public class Estacionar extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutIntent = new Intent(this, ajuda.class);
+            startActivity(aboutIntent);
         }
         //Adicionar seta de voltar
         if (item.getItemId() == android.R.id.home) {

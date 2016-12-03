@@ -32,7 +32,7 @@ import java.util.TimerTask;
 
 import javax.security.auth.Destroyable;
 
-import static com.example.phiin.smartparking.R.id.btnBack;
+import static com.example.phiin.smartparking.R.id.btn_Back;
 
 public class ProcurarVagas extends AppCompatActivity {
 
@@ -90,9 +90,10 @@ public class ProcurarVagas extends AppCompatActivity {
 
     public void onClick(View v) {
         switch (v.getId()) {
-            case btnBack:
-                Intent check = new Intent(this, SmartParkingMain.class);
-                startActivity(check);
+            case btn_Back:
+                Intent back = new Intent(this, SmartParkingMain.class);
+                back.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(back);
                 finish();
                 break;
 
@@ -102,18 +103,17 @@ public class ProcurarVagas extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
         autoUpdatee = new Timer();
         autoUpdatee.schedule(new TimerTask() {
             @Override
             public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                            new JSONTask().execute("http://192.168.0.150");
+                        new JSONTask().execute("http://192.168.0.150");
                     }
                 });
             }
-        }, 0, 3000); // 2 segundos
+        }, 0, 3000); // 3 segundos
 
         verificaPin();
     }
@@ -131,7 +131,8 @@ public class ProcurarVagas extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutIntent = new Intent(this, ajuda.class);
+            startActivity(aboutIntent);
         }
         //Adicionar seta de voltar
         if (item.getItemId() == android.R.id.home) {
@@ -202,7 +203,7 @@ public class ProcurarVagas extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
-                if(stream != null){
+                if (stream != null) {
                     try {
                         stream.close();
                     } catch (IOException e) {
@@ -289,7 +290,7 @@ public class ProcurarVagas extends AppCompatActivity {
 
     public void verificaVagaEstacionada() {
 
-        if(sensor1 == 0 && sensor2 == 0 && sensor3 == 0){
+        if (sensor1 == 0 && sensor2 == 0 && sensor3 == 0) {
             carro_verde.setVisibility(View.INVISIBLE);
             carro_amarelo.setVisibility(View.INVISIBLE);
             carro_vermelho.setVisibility(View.INVISIBLE);

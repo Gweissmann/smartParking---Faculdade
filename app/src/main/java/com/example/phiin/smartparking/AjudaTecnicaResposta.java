@@ -1,5 +1,6 @@
 package com.example.phiin.smartparking;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -55,7 +56,8 @@ public class AjudaTecnicaResposta extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutIntent = new Intent(this, ajuda.class);
+            startActivity(aboutIntent);
         }
         if (item.getItemId() == android.R.id.home) {
             finish();

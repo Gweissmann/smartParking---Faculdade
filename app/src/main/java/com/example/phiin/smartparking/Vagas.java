@@ -1,6 +1,7 @@
 package com.example.phiin.smartparking;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,6 +37,9 @@ import java.util.TimerTask;
 /**
  * Created by Gu on 14/10/2016.
  */
+
+import static com.example.phiin.smartparking.R.id.btn_Back;
+import static com.example.phiin.smartparking.R.id.content_main_vaga;
 
 public class Vagas extends AppCompatActivity {
 
@@ -88,7 +92,7 @@ public class Vagas extends AppCompatActivity {
             public void run() {
                 runOnUiThread(new Runnable() {
                     public void run() {
-                            new JSONTask().execute("http://192.168.0.150");
+                        new JSONTask().execute("http://192.168.0.150");
                     }
                 });
             }
@@ -109,13 +113,25 @@ public class Vagas extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            return true;
+            Intent aboutIntent = new Intent(this, ajuda.class);
+            startActivity(aboutIntent);
         }
         if (item.getItemId() == android.R.id.home) {
             finish();
             new JSONTask().cancel(true);
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case btn_Back:
+                Intent back = new Intent(this, SmartParkingMain.class);
+                back.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+                startActivity(back);
+                finish();
+                break;
+        }
     }
 
 
@@ -184,7 +200,7 @@ public class Vagas extends AppCompatActivity {
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
-                if(stream != null){
+                if (stream != null) {
                     try {
                         stream.close();
                     } catch (IOException e) {

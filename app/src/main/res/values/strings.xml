@@ -3,7 +3,7 @@
     <string name="action_settings">Ajuda</string>
     <string name="procurar_vaga">Onde Estou?</string>
     <string name="vaga">Vagas</string>
-    <string name="ajuda">Ajuda</string>
+    <string name="ajuda">Ajuda Técnica</string>
     <string name="title_activity_procurar_vaga">ProcurarVaga</string>
     <string name="title_activity_main_vaga">mainVaga</string>
     <string name="title_activity_ajuda_tecnica">AjudaTecnica</string>
@@ -11,4 +11,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_ajuda_tecnica_resposta">AjudaTecnicaResposta</string>
+    <string name="title_activity_ajuda">ajuda</string>
 </resources>
